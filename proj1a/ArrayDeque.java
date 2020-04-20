@@ -7,11 +7,15 @@ public class ArrayDeque<Item>{
 	public ArrayDeque(){
 		size = 0;
 		arr = (Item[]) new Object[8];
+		first = 0;
+		last = 0;
 	}
 
 	public ArrayDeque(int cap){
 		size = 0;
 		arr = (Item[]) new Object[cap];
+		first = 0;
+		last = 0;
 	}
 
 	public void addFirst(Item item){
@@ -20,7 +24,7 @@ public class ArrayDeque<Item>{
 			this.resize(arr.length * 2);
 		}
 		arr[first] = item;
-		first = (first-1)%arr.length;
+		first = ((first-1)%arr.length + arr.length)%arr.length;
 		size++;
 	}
 
@@ -41,7 +45,7 @@ public class ArrayDeque<Item>{
 		}
 		else{
 			System.arraycopy(arr, 0, temp, 0, last);
-			System.arraycopy(arr, first + 1, temp, temp.length - (arr.length - first) + 1, arr.length - first + 1);
+			System.arraycopy(arr, (first + 1), temp, (temp.length - (arr.length -(first+1))), (arr.length-(first + 1)));
 		}
 		arr = temp;
 	}
@@ -88,7 +92,7 @@ public class ArrayDeque<Item>{
 			throw new IllegalArgumentException("Array is empty");
 		}
 		Item temp = this.get((last-1)%arr.length);
-		arr[(last-1)%arr.length] = null;
+		arr[((last-1)%arr.length + arr.length)% arr.length] = null;
 		last = (last-1)%arr.length;
 		return temp;
 	}
@@ -97,17 +101,22 @@ public class ArrayDeque<Item>{
 		return arr[index];
 	}
 
-	/**
-	public void addFirst(T item): Adds an item of type T to the front of the deque.
-	public void addLast(T item): Adds an item of type T to the back of the deque.
-	public boolean isEmpty(): Returns true if deque is empty, false otherwise.
-	public int size(): Returns the number of items in the deque.
-	public void printDeque(): Prints the items in the deque from first to last, separated by a space.
-	public T removeFirst(): Removes and returns the item at the front of the deque. If no such item exists, returns null.
-	public T removeLast(): Removes and returns the item at the back of the deque. If no such item exists, returns null.
-	public T get(int index): Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque!
-
-	**/
+	public static void main (String[] args){
+        ArrayDeque<Integer> arr = new ArrayDeque<>();
+        arr.addFirst(1);
+        arr.addFirst(2);
+        arr.addFirst(3);
+        arr.addFirst(4);
+        arr.addFirst(5);
+        arr.addFirst(6);
+        arr.addFirst(7);
+        arr.addFirst(8);
+		System.out.println(arr.size());
+        for(int i = 0; i < 16; i++){
+            System.out.print(arr.get(i) + " ");
+        }
+        System.out.println();
+    }
 
 
 
