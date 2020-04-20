@@ -20,7 +20,7 @@ public class ArrayDeque<Item>{
 			this.resize(arr.length * 2);
 		}
 		arr[first] = item;
-		fist = (first-1)%arr.length;
+		first = (first-1)%arr.length;
 		size++;
 	}
 
@@ -79,7 +79,7 @@ public class ArrayDeque<Item>{
 		}
 		Item temp = this.get((first+1)%arr.length);
 		arr[(first+1)%arr.length] = null;
-		arr = (first+1)%arr.length;
+		first = (first+1)%arr.length;
 		return temp;
 	}
 
@@ -89,7 +89,7 @@ public class ArrayDeque<Item>{
 		}
 		Item temp = this.get((last-1)%arr.length);
 		arr[(last-1)%arr.length] = null;
-		arr = (last-1)%arr.length;
+		last = (last-1)%arr.length;
 		return temp;
 	}
 
