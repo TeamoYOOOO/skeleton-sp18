@@ -4,6 +4,7 @@ public class ArrayDeque<Item>{
 	private int last;//pointer
 	private Item[] arr;
 
+	//constructor
 	public ArrayDeque(){
 		size = 0;
 		arr = (Item[]) new Object[8];
