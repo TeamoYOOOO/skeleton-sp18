@@ -19,14 +19,8 @@ public class ArrayDeque<Item>{
 		if((last + 1) % arr.length == first){
 			this.resize(arr.length * 2);
 		}
-		if(first == 0){//position zero - jump to the last index
-			arr[first] = item;
-			first = arr.length -1;
-		}
-		else{
-			arr[first] = item;
-			first--;
-		}
+		arr[first] = item;
+		fist = (first-1)%arr.length;
 		size++;
 	}
 
@@ -35,14 +29,8 @@ public class ArrayDeque<Item>{
 		if((last + 1) % arr.length == first){
 			this.resize(arr.length * 2);
 		}
-		if(last == arr.length-1){
-			arr[last] = item;
-			last = 0;
-		}
-		else{
-			arr[last] = item;
-			last++;
-		}
+		arr[last] = item;
+		last = (last+1) % arr.length;
 		size++;
 	}
 
@@ -86,42 +74,22 @@ public class ArrayDeque<Item>{
 	}
 
 	public Item removeFirst(){
-		Item temp = first == arr.length-1? arr[0] : arr[first+1];
 		if(this.isEmpty()){
 			throw new IllegalArgumentException("Array is empty");
 		}
-		if(first == arr.length-1){
-			arr[0] = null;//null for generics 
-			first = 0;
-		}
-		else{
-			arr[first+1] = null;//null for generics
-			first++;
-		}
-		size--;
-		if(size < arr.length/4){
-			this.resize(arr.length/2);
-		}
+		Item temp = this.get((first+1)%arr.length);
+		arr[(first+1)%arr.length] = null;
+		arr = (first+1)%arr.length;
 		return temp;
 	}
 
 	public Item removeLast(){
-		Item temp = last==0? arr[arr.length-1] : arr[last-1];
 		if(this.isEmpty()){
 			throw new IllegalArgumentException("Array is empty");
 		}
-		if(last == 0){
-			arr[arr.length-1] = null;//null for generics 
-			last = arr.length-1;
-		}
-		else{
-			arr[last-1] = null;//null for generics
-			last++;
-		}
-		size--;
-		if(size < arr.length/4){
-			this.resize(arr.length/2);
-		}
+		Item temp = this.get((last-1)%arr.length);
+		arr[(last-1)%arr.length] = null;
+		arr = (last-1)%arr.length;
 		return temp;
 	}
 
