@@ -1,5 +1,5 @@
 /** Performs some basic linked list tests. */
-public class LinkedListDequeTest {
+public class LinkedListDequeTest<Item> {
 	
 	/* Utility method for printing out empty checks. */
 	public static boolean checkEmpty(boolean expected, boolean actual) {
