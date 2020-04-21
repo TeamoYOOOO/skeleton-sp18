@@ -87,7 +87,7 @@ public class ArrayDeque<T>{
 		if(this.isEmpty()){
 			throw new IllegalArgumentException("Array is empty");
 		}
-		T temp = this.get((last-1)%arr.length);
+		T temp = this.get(((last-1)%arr.length+arr.length)%arr.length);
 		arr[((last-1)%arr.length + arr.length)% arr.length] = null;
 		last = (last-1)%arr.length;
 		size--;
@@ -110,8 +110,18 @@ public class ArrayDeque<T>{
         arr.addFirst(8);
         arr.addLast(9);
         arr.addLast(10);
+        arr.addLast(11);
+        arr.addLast(12);
+        arr.addLast(13);
+        arr.addLast(14);
+        arr.removeLast();
+        arr.removeFirst();
+        arr.addFirst(100);
+        arr.addLast(50);
+        arr.addLast(60);
+        arr.addFirst(200);
 		System.out.println(arr.size());
-        for(int i = 0; i < 16; i++){
+        for(int i = 0; i < 32; i++){
             System.out.print(arr.get(i) + " ");
         }
         System.out.println();
