@@ -1,25 +1,18 @@
-public class ArrayDeque<Item>{
+public class ArrayDeque<T>{
 	private int size;
 	private int first;//pointer
 	private int last;//pointer
-	private Item[] arr;
+	private T[] arr;
 
 	//constructor
 	public ArrayDeque(){
 		size = 0;
-		arr = (Item[]) new Object[8];
+		arr = (T[]) new Object[8];
 		first = 0;
 		last = 1;
 	}
 
-	public ArrayDeque(int cap){
-		size = 0;
-		arr = (Item[]) new Object[cap];
-		first = 0;
-		last = 1;
-	}
-
-	public void addFirst(Item item){
+	public void addFirst(T item){
 		//last and first should not point at same box
 		if((last + 1) % arr.length == first){
 			this.resize(arr.length * 2);
@@ -29,7 +22,7 @@ public class ArrayDeque<Item>{
 		size++;
 	}
 
-	public void addLast(Item item){
+	public void addLast(T item){
 		//last and first should not point at same box
 		if((last + 1) % arr.length == first){
 			this.resize(arr.length * 2);
@@ -40,13 +33,14 @@ public class ArrayDeque<Item>{
 	}
 
 	private void resize(int length){
-		Item[] temp = (Item[])new Object[length];
+		T[] temp = (T[])new Object[length];
 		if(first < last){
 			System.arraycopy(arr, first + 1, temp, first + 1, size);
 		}
 		else{
 			System.arraycopy(arr, 0, temp, 0, last);
 			System.arraycopy(arr, (first + 1), temp, (temp.length - (arr.length -(first+1))), (arr.length-(first + 1)));
+			first = temp.length - (arr.length - first);
 		}
 		arr = temp;
 	}
@@ -78,29 +72,29 @@ public class ArrayDeque<Item>{
 		}
 	}
 
-	public Item removeFirst(){
+	public T removeFirst(){
 		if(this.isEmpty()){
 			throw new IllegalArgumentException("Array is empty");
 		}
-		Item temp = this.get((first+1)%arr.length);
+		T temp = this.get((first+1)%arr.length);
 		arr[(first+1)%arr.length] = null;
 		first = (first+1)%arr.length;
 		size--;
 		return temp;
 	}
 
-	public Item removeLast(){
+	public T removeLast(){
 		if(this.isEmpty()){
 			throw new IllegalArgumentException("Array is empty");
 		}
-		Item temp = this.get((last-1)%arr.length);
+		T temp = this.get((last-1)%arr.length);
 		arr[((last-1)%arr.length + arr.length)% arr.length] = null;
 		last = (last-1)%arr.length;
 		size--;
 		return temp;
 	}
 
-	public Item get(int index){
+	public T get(int index){
 		return arr[index];
 	}
 
@@ -114,6 +108,8 @@ public class ArrayDeque<Item>{
         arr.addFirst(6);
         arr.addFirst(7);
         arr.addFirst(8);
+        arr.addLast(9);
+        arr.addLast(10);
 		System.out.println(arr.size());
         for(int i = 0; i < 16; i++){
             System.out.print(arr.get(i) + " ");
