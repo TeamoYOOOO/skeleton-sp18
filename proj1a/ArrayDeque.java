@@ -80,6 +80,9 @@ public class ArrayDeque<T>{
 		arr[(first+1)%arr.length] = null;
 		first = (first+1)%arr.length;
 		size--;
+		if(size < arr.length/4){
+			this.resize(arr.length/2);
+		}
 		return temp;
 	}
 
@@ -91,6 +94,10 @@ public class ArrayDeque<T>{
 		arr[((last-1)%arr.length + arr.length)% arr.length] = null;
 		last = (last-1)%arr.length;
 		size--;
+		if(size < arr.length/4){
+			this.resize(arr.length/2);
+		}
+
 		return temp;
 	}
 
