@@ -9,14 +9,14 @@ public class ArrayDeque<Item>{
 		size = 0;
 		arr = (Item[]) new Object[8];
 		first = 0;
-		last = 0;
+		last = 1;
 	}
 
 	public ArrayDeque(int cap){
 		size = 0;
 		arr = (Item[]) new Object[cap];
 		first = 0;
-		last = 0;
+		last = 1;
 	}
 
 	public void addFirst(Item item){
@@ -85,6 +85,7 @@ public class ArrayDeque<Item>{
 		Item temp = this.get((first+1)%arr.length);
 		arr[(first+1)%arr.length] = null;
 		first = (first+1)%arr.length;
+		size--;
 		return temp;
 	}
 
@@ -95,6 +96,7 @@ public class ArrayDeque<Item>{
 		Item temp = this.get((last-1)%arr.length);
 		arr[((last-1)%arr.length + arr.length)% arr.length] = null;
 		last = (last-1)%arr.length;
+		size--;
 		return temp;
 	}
 
